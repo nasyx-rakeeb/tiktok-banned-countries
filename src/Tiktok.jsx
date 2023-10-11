@@ -7,30 +7,30 @@ const TikTokMap = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isMapLoaded, setIsMapLoaded] = useState(false); // State to track map loading
   const bannedCountries = [
-    { name: "Afghanistan", banDate: 2022 },
-    { name: "Armenia", banDate: 2020 },
-    { name: "Azerbaijan", banDate: 2020 },
-    { name: "Bangladesh", banDate: 2018 },
-    { name: "India", banDate: 2020 },
-    { name: "Indonesia", banDate: 2018 },
-    { name: "Iran", banDate: null },
-    { name: "Jordan", banDate: 2022 },
-    { name: "Pakistan", banDate: 2021 },
-    { name: "Taiwan", banDate: 2022 },
-    { name: "Austria", banDate: 2023 },
-    { name: "Belgium", banDate: 2023 },
-    { name: "Denmark", banDate: 2023 },
-    { name: "Estonia", banDate: 2023 },
-    { name: "France", banDate: 2023 },
-    { name: "Ireland", banDate: 2023 },
-    { name: "Latvia", banDate: 2023 },
-    { name: "Netherlands", banDate: 2022 },
-    { name: "Norway", banDate: 2023 },
-    { name: "UK", banDate: 2023 },
-    { name: "Canada", banDate: 2023 },
-    { name: "US", banDate: 2023 },
-    { name: "Australia", banDate: 2023 },
-    { name: "New Zealand", banDate: 2023 },
+    { name: "Afghanistan", banDate: 2022, color: "#FF0000" },
+    { name: "Armenia", banDate: 2020, color: "#00FF00" },
+    { name: "Azerbaijan", banDate: 2020, color: "#0000FF" },
+    { name: "Bangladesh", banDate: 2018, color: "#FF00FF" },
+    { name: "India", banDate: 2020, color: "#00FFFF" },
+    { name: "Indonesia", banDate: 2018, color: "#FFFF00" },
+    { name: "Iran", banDate: null, color: "#FF5733" },
+    { name: "Jordan", banDate: 2022, color: "#33FF57" },
+    { name: "Pakistan", banDate: 2021, color: "#5733FF" },
+    { name: "Taiwan", banDate: 2022, color: "#FF5733" },
+    { name: "Austria", banDate: 2023, color: "#33FF57" },
+    { name: "Belgium", banDate: 2023, color: "#5733FF" },
+    { name: "Denmark", banDate: 2023, color: "#FF5733" },
+    { name: "Estonia", banDate: 2023, color: "#33FF57" },
+    { name: "France", banDate: 2023, color: "#5733FF" },
+    { name: "Ireland", banDate: 2023, color: "#FF5733" },
+    { name: "Latvia", banDate: 2023, color: "#33FF57" },
+    { name: "Netherlands", banDate: 2022, color: "#5733FF" },
+    { name: "Norway", banDate: 2023, color: "#FF5733" },
+    { name: "UK", banDate: 2023, color: "#33FF57" },
+    { name: "Canada", banDate: 2023, color: "#5733FF" },
+    { name: "US", banDate: 2023, color: "#FF5733" },
+    { name: "Australia", banDate: 2023, color: "#33FF57" },
+    { name: "New Zealand", banDate: 2023, color: "#5733FF" },
   ];
 
   // Function to filter countries based on the search query
@@ -57,12 +57,12 @@ const TikTokMap = () => {
       <nav className="bg-blue-500 p-4">
         <div className="max-w-screen-xl mx-auto flex justify-between items-center">
           <h1 className="text-4xl font-bold text-white">
-            <span className="text-slate-800">Test </span>12
+            <span className="text-slate-800">Test </span>11
           </h1>
           <div className="relative w-48 sm:w-64">
             <input
               type="text"
-              placeholder="Search for TikTok"
+              placeholder="Ex: TikTok"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-10 pr-3 py-2 rounded-full text-gray-900 focus:outline-none focus:ring focus:border-blue-300"
@@ -101,11 +101,16 @@ const TikTokMap = () => {
                   const isBanned =
                     searchQuery.replace(/\s/g, "").toLowerCase() === "tiktok" &&
                     filterCountries(geo);
+                  const countryName = geo.properties.ADMIN;
+                  const country = bannedCountries.find(
+                    (banned) =>
+                      banned.name.toLowerCase() === countryName.toLowerCase()
+                  );
                   return (
                     <Geography
                       key={geo.rsmKey}
                       geography={geo}
-                      fill={isBanned ? "yellow" : "#ECEFF1"}
+                      fill={isBanned ? country.color : "#ECEFF1"}
                     />
                   );
                 })
